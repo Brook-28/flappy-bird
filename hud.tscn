@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://ctjnvnfwjyior"]
+
+[ext_resource type="FontFile" uid="uid://c4h41jxe4xn5u" path="res://assets/Minecraftia-Regular.ttf" id="1_37p78"]
+[ext_resource type="Script" uid="uid://ce5sxcs4yiry8" path="res://hud.gd" id="1_64ctp"]
+
+[node name="hud" type="CanvasLayer" unique_id=214659990]
+script = ExtResource("1_64ctp")
+
+[node name="ScoreLabel" type="Label" parent="." unique_id=1276897222]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 112.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_37p78")
+theme_override_font_sizes/font_size = 64
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="." unique_id=1288661145]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -212.0
+offset_top = -298.0
+offset_right = 228.0
+offset_bottom = -178.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_37p78")
+theme_override_font_sizes/font_size = 64
+text = "Start Game"
+
+[node name="Message" type="Label" parent="." unique_id=916161604]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -184.0
+offset_top = -52.5
+offset_right = 184.0
+offset_bottom = 52.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_37p78")
+theme_override_font_sizes/font_size = 60
+text = "Mr. Flappy"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="." unique_id=1570145544]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

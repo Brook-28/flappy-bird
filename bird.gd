@@ -9,7 +9,7 @@ var is_dead = false
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-
+	hide()
 
 
 func _process(delta: float) -> void:
@@ -31,18 +31,23 @@ func _process(delta: float) -> void:
 		velocity.y = jump_force
 	
 	# touching ground and death logic
-	if position.y >= screen_size.y:
+	if position.y >= 700:
 		is_dead = true
 		hide()
 		hit.emit()
 		$CollisionShape2D.set_deferred("disabled", true)
 
 	
-	position = position.clamp(Vector2.ZERO, screen_size)
+	position = position.clamp(Vector2.ZERO, Vector2(screen_size.x, 700))
 
 # death and pipe collision logic
-func _on_body_entered(_body: Node2D):
+func _on_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
 	is_dead = true
 	hide()
 	hit.emit()
 	$CollisionShape2D.set_deferred("disabled", true)
+	
+func start(pos):
+	position = pos
+	show()
+	$CollisionShape2D.disabled = false

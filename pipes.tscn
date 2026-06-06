@@ -4,28 +4,31 @@
 [ext_resource type="Texture2D" uid="uid://dktls5hmnoyh8" path="res://assets/pipe.png" id="1_r1kwc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_og227"]
-size = Vector2(93, 466)
+size = Vector2(94.5, 466)
 
 [node name="pipes" type="Area2D" unique_id=189263297]
 script = ExtResource("1_og227")
-
-[node name="upper pipe collision" type="CollisionShape2D" parent="." unique_id=1439970144]
-position = Vector2(327, -18)
-shape = SubResource("RectangleShape2D_og227")
+metadata/_edit_group_ = true
 
 [node name="upper pipe sprite" type="Sprite2D" parent="." unique_id=1685075446]
-position = Vector2(314, -13)
+position = Vector2(-13, -350)
 rotation = 3.1415927
 texture = ExtResource("1_r1kwc")
 
-[node name="bottom pipe collision" type="CollisionShape2D" parent="." unique_id=1247744955]
-position = Vector2(330.5, 619.5)
+[node name="upper pipe collision" type="CollisionShape2D" parent="." unique_id=1439970144]
+position = Vector2(0, -354)
 shape = SubResource("RectangleShape2D_og227")
 
 [node name="bottom pipe sprite" type="Sprite2D" parent="." unique_id=1967855737]
-position = Vector2(343, 615)
+position = Vector2(14, 350)
 texture = ExtResource("1_r1kwc")
 
+[node name="bottom pipe collision" type="CollisionShape2D" parent="." unique_id=1247744955]
+position = Vector2(0, 355)
+shape = SubResource("RectangleShape2D_og227")
+
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=916833304]
-position = Vector2(288, -246)
+position = Vector2(-41, -548)
 rect = Rect2(-10, -10, 107, 1123)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

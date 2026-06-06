@@ -1,11 +1,16 @@
 extends Area2D
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+signal point
+@export var speed = 200
+var scored = false
+# moves the pipe
 func _process(delta: float) -> void:
-	pass
+	position += Vector2(-speed, 0) * delta
+	
+	if position.x < 100 and not scored:
+		scored = true
+		point.emit()
+
+# delete the pipe when it exists the screen
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	queue_free()

@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://bvpnynt0wo3dj"]
+
+[ext_resource type="Script" uid="uid://cy1xxx3c85py8" path="res://main.gd" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://d06d3oj7osvuh" path="res://bird.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://dr457tjbg5ov0" path="res://pipes.tscn" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://ctjnvnfwjyior" path="res://hud.tscn" id="4_1bvp3"]
+
+[node name="main" type="Node" unique_id=1949963707]
+script = ExtResource("1_h2yge")
+pipe_scene = ExtResource("2_1bvp3")
+
+[node name="Sky" type="ColorRect" parent="." unique_id=1487077035]
+offset_right = 540.0
+offset_bottom = 700.0
+color = Color(0.5921569, 0.83137256, 0.95686275, 1)
+
+[node name="Grass" type="ColorRect" parent="." unique_id=1142623037]
+z_index = 1
+offset_top = 700.0
+offset_right = 540.0
+offset_bottom = 720.0
+color = Color(0.3975631, 0.70693123, 0.26504672, 1)
+
+[node name="Ground" type="ColorRect" parent="Grass" unique_id=1830045384]
+layout_mode = 0
+offset_top = 20.0
+offset_right = 540.0
+offset_bottom = 160.0
+color = Color(0.84313726, 0.85882354, 0.59607846, 1)
+
+[node name="Bird" parent="." unique_id=1828527024 instance=ExtResource("1_ig7tw")]
+position = Vector2(126, 337)
+
+[node name="PipeTimer" type="Timer" parent="." unique_id=671164271]
+wait_time = 2.0
+
+[node name="hud" parent="." unique_id=214659990 instance=ExtResource("4_1bvp3")]
+
+[connection signal="hit" from="Bird" to="." method="game_over"]
+[connection signal="timeout" from="PipeTimer" to="." method="_on_pipe_timer_timeout"]
+[connection signal="start_game" from="hud" to="." method="new_game"]
