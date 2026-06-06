@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://d06d3oj7osvuh" path="res://bird.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://dr457tjbg5ov0" path="res://pipes.tscn" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://ctjnvnfwjyior" path="res://hud.tscn" id="4_1bvp3"]
+[ext_resource type="AudioStream" uid="uid://7ylyldgvrsj4" path="res://assets/gameOver.mp3" id="5_7mycd"]
+[ext_resource type="AudioStream" uid="uid://bw0rt4pw4nt5a" path="res://assets/gamestart_jmqDSOpr.mp3" id="6_7mycd"]
 
 [node name="main" type="Node" unique_id=1949963707]
 script = ExtResource("1_h2yge")
@@ -29,12 +31,20 @@ offset_bottom = 160.0
 color = Color(0.84313726, 0.85882354, 0.59607846, 1)
 
 [node name="Bird" parent="." unique_id=1828527024 instance=ExtResource("1_ig7tw")]
+z_index = 1
 position = Vector2(126, 337)
 
 [node name="PipeTimer" type="Timer" parent="." unique_id=671164271]
 wait_time = 2.0
 
 [node name="hud" parent="." unique_id=214659990 instance=ExtResource("4_1bvp3")]
+
+[node name="gameOverSound" type="AudioStreamPlayer2D" parent="." unique_id=300844485]
+stream = ExtResource("5_7mycd")
+
+[node name="gameStartSound" type="AudioStreamPlayer2D" parent="." unique_id=1229328717]
+stream = ExtResource("6_7mycd")
+volume_db = 16.224
 
 [connection signal="hit" from="Bird" to="." method="game_over"]
 [connection signal="timeout" from="PipeTimer" to="." method="_on_pipe_timer_timeout"]
