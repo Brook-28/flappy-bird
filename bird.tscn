@@ -11,7 +11,7 @@ height = 96.0
 [node name="Bird" type="Area2D" unique_id=1828527024]
 script = ExtResource("1_crnqq")
 jump_force = -700.0
-game_gravity = 9.0
+game_gravity = 1800.0
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=924018578]

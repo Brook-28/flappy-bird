@@ -16,10 +16,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	
 	
-	
-	
 	# positional logic
-	velocity.y += game_gravity
+	velocity.y += game_gravity * delta
 	position += velocity * delta
 	
 	# direction facing logic

@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=540
 window/size/viewport_height=860
+window/stretch/mode="canvas_items"
+window/handheld/orientation=1
 
 [input]
 
@@ -36,3 +38,4 @@ Jump={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+textures/vram_compression/import_etc2_astc=true
