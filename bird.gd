@@ -1,33 +1,44 @@
-extends Area2D
+extends RigidBody2D
 signal hit
 
-@export var jump_force = -500.0
-@export var game_gravity = 5.0
-var velocity = Vector2.ZERO
+@export var jump_force = -1000.0
+
+
 var screen_size
-var is_dead = true
+var is_dead = false
 var has_jumped = false
 var base_scale = Vector2(1.5, 1.5)
 
 func _ready() -> void:
+	freeze = true
 	screen_size = get_viewport_rect().size
-	hide()
+	
 	$CollisionShape2D.disabled = true
+
+
+func _physics_process(delta: float) -> void:
+	
+	# player input control
+	if not is_dead:
+		if Input.is_action_just_pressed("Jump"):
+			linear_velocity = Vector2(0 , jump_force)
+			has_jumped = true
+			$AudioStreamPlayer2D.play()
+			
+
 
 func _process(delta: float) -> void:
 	
-	
-	# positional logic
 	if has_jumped:
-		velocity.y += game_gravity * delta
-		position += velocity * delta
+		freeze = false
+		
 	
 	# birds streching 
 	var target_scale: Vector2
 	
-	if velocity.y < 0:
+	if linear_velocity.y < 0:
 		target_scale = Vector2(0.85 * base_scale.x, 1.2 * base_scale.y)
-	elif velocity.y > 0:
+	elif linear_velocity.y > 0:
 		target_scale = Vector2(1.2 * base_scale.x, 0.85 * base_scale.y)
 	else:
 		target_scale = base_scale
@@ -38,16 +49,12 @@ func _process(delta: float) -> void:
 	
 	# direction facing logic
 	if not is_dead:
-		rotation = velocity.y * 0.001
+		rotation = linear_velocity.y * 0.001
 	else:
 		rotation = min(rotation + 0.04, PI / 2)
 		
-	# player input control
-	if not is_dead:
-		if Input.is_action_just_pressed("Jump"):
-			velocity.y = jump_force
-			has_jumped = true
-			$AudioStreamPlayer2D.play()
+	
+	
 	
 	# touching ground and death logic
 	if not is_dead:
@@ -57,7 +64,7 @@ func _process(delta: float) -> void:
 			$CollisionShape2D.set_deferred("disabled", true)
 
 	
-	position = position.clamp(Vector2.ZERO, Vector2(screen_size.x, 700))
+	
 
 # death and pipe collision logic
 func _on_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
@@ -66,8 +73,8 @@ func _on_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, 
 	$CollisionShape2D.set_deferred("disabled", true)
 	
 func start(pos):
+	freeze = true
 	position = pos
-	velocity = Vector2(0, 0)
 	is_dead = false
 	has_jumped = false
 	show()
