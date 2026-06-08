@@ -1,27 +1,28 @@
 [gd_scene format=3 uid="uid://d06d3oj7osvuh"]
 
 [ext_resource type="Script" uid="uid://dgc7avtxm5tjq" path="res://bird.gd" id="1_crnqq"]
-[ext_resource type="Texture2D" uid="uid://dhk321rkbnxxk" path="res://assets/bird.png" id="1_g5k2s"]
+[ext_resource type="Texture2D" uid="uid://b77air4xho10x" path="res://assets/bird_sprite1.png" id="2_j88tq"]
 [ext_resource type="AudioStream" uid="uid://dimf4ha1j41cw" path="res://assets/jumpSound.wav" id="3_j88tq"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g5k2s"]
-radius = 46.0
-height = 96.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_j88tq"]
+radius = 48.166378
 
 [node name="Bird" type="Area2D" unique_id=1828527024]
 script = ExtResource("1_crnqq")
 jump_force = -700.0
-game_gravity = 1800.0
+game_gravity = 2250.0
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=924018578]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_g5k2s")
+texture_filter = 1
+position = Vector2(3.9999967, 2.5000033)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_j88tq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=645729547]
 position = Vector2(4, 3)
 scale = Vector2(0.5, 0.5)
-shape = SubResource("CapsuleShape2D_g5k2s")
+shape = SubResource("CircleShape2D_j88tq")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1769938819]
 stream = ExtResource("3_j88tq")

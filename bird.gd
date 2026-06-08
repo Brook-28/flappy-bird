@@ -6,7 +6,8 @@ signal hit
 var velocity = Vector2.ZERO
 var screen_size
 var is_dead = true
-var max_rotation = 0
+var has_jumped = false
+var base_scale = Vector2(1.5, 1.5)
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
@@ -17,8 +18,23 @@ func _process(delta: float) -> void:
 	
 	
 	# positional logic
-	velocity.y += game_gravity * delta
-	position += velocity * delta
+	if has_jumped:
+		velocity.y += game_gravity * delta
+		position += velocity * delta
+	
+	# birds streching 
+	var target_scale: Vector2
+	
+	if velocity.y < 0:
+		target_scale = Vector2(0.85 * base_scale.x, 1.2 * base_scale.y)
+	elif velocity.y > 0:
+		target_scale = Vector2(1.2 * base_scale.x, 0.85 * base_scale.y)
+	else:
+		target_scale = base_scale
+		
+	$Sprite2D.scale = $Sprite2D.scale.lerp(target_scale, 5 * delta)
+	
+	
 	
 	# direction facing logic
 	if not is_dead:
@@ -30,6 +46,7 @@ func _process(delta: float) -> void:
 	if not is_dead:
 		if Input.is_action_just_pressed("Jump"):
 			velocity.y = jump_force
+			has_jumped = true
 			$AudioStreamPlayer2D.play()
 	
 	# touching ground and death logic
@@ -50,7 +67,8 @@ func _on_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, 
 	
 func start(pos):
 	position = pos
-	velocity = Vector2(0, 100)
+	velocity = Vector2(0, 0)
 	is_dead = false
+	has_jumped = false
 	show()
 	$CollisionShape2D.disabled = false

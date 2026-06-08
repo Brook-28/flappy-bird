@@ -35,7 +35,7 @@ z_index = 1
 position = Vector2(126, 337)
 
 [node name="PipeTimer" type="Timer" parent="." unique_id=671164271]
-wait_time = 2.0
+wait_time = 1.5999999999999999
 
 [node name="hud" parent="." unique_id=214659990 instance=ExtResource("4_1bvp3")]
 
