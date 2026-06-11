@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://eegs4jv3740f"]
+
+[ext_resource type="PackedScene" uid="uid://bcqxu1tweeb4x" path="res://physics_bird.tscn" id="1_37kl0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8uh7m"]
+size = Vector2(908, 20)
+
+[node name="test" type="Node" unique_id=140541097]
+
+[node name="PhysicsBird" parent="." unique_id=586083337 instance=ExtResource("1_37kl0")]
+position = Vector2(167, 128)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1557236869]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=582118106]
+position = Vector2(277, 533)
+shape = SubResource("RectangleShape2D_8uh7m")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=64145845]
+position = Vector2(-15, 385)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_8uh7m")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D/CollisionShape2D2" unique_id=472720563]
+position = Vector2(-105.00001, -557)
+shape = SubResource("RectangleShape2D_8uh7m")

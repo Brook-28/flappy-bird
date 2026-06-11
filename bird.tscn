@@ -5,8 +5,6 @@
 [ext_resource type="AudioStream" uid="uid://dimf4ha1j41cw" path="res://assets/jumpSound.wav" id="3_j88tq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_j88tq"]
-friction = 0.6
-bounce = 0.4
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j88tq"]
 radius = 48.166378

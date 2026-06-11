@@ -8,29 +8,35 @@ var screen_size
 var is_dead = false
 var has_jumped = false
 var base_scale = Vector2(1.5, 1.5)
+var jump_requested = false
 
 func _ready() -> void:
-	freeze = true
+	can_sleep = false
 	screen_size = get_viewport_rect().size
 	
 	$CollisionShape2D.disabled = true
+
+
+func _unhandled_input(event):
+	if not is_dead:
+		if event.is_action_pressed("Jump"):
+			jump_requested = true
+
 
 
 func _physics_process(delta: float) -> void:
 	
 	# player input control
 	if not is_dead:
-		if Input.is_action_just_pressed("Jump"):
+		if jump_requested:
 			linear_velocity = Vector2(0 , jump_force)
-			has_jumped = true
+			jump_requested = false
 			$AudioStreamPlayer2D.play()
+	print(linear_velocity.y)
 			
 
 
 func _process(delta: float) -> void:
-	
-	if has_jumped:
-		freeze = false
 		
 	
 	# birds streching 
@@ -48,13 +54,9 @@ func _process(delta: float) -> void:
 	
 	
 	# direction facing logic
-	if not is_dead:
-		rotation = linear_velocity.y * 0.001
-	else:
-		rotation = min(rotation + 0.04, PI / 2)
-		
+	rotation = linear_velocity.y * 0.001
 	
-	
+
 	
 	# touching ground and death logic
 	if not is_dead:
@@ -75,6 +77,7 @@ func _on_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, 
 func start(pos):
 	freeze = true
 	position = pos
+	freeze = false
 	is_dead = false
 	has_jumped = false
 	show()
