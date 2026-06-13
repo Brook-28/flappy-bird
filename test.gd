@@ -40,8 +40,8 @@ func new_game():
 	score = 0
 	$hud.update_score(score)
 	$hud.show_message(("Tap!"))
-	$PhysicsBird.start(Vector2(100,600))
-	$Timer.start()	
+	$PhysicsBird.start(Vector2(100,400))
+		
 	
 func game_over() -> void:
 	game_active = false
@@ -49,3 +49,7 @@ func game_over() -> void:
 	$hud.show_game_over()
 	$gameOverSound.play()
 	
+
+
+func _on_physics_bird_jumped() -> void:
+	$Timer.start()

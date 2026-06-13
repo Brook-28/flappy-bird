@@ -1,5 +1,6 @@
 extends RigidBody2D
 signal hit
+signal jumped
 
 var base_scale = Vector2(1.5, 1.5)
 @export var jump_force = -33000.0
@@ -19,8 +20,11 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("Jump"):
 			
 			linear_velocity = Vector2(0, jump_force * 1.2) * delta
+			if not has_jumped:
+				jumped.emit()
 			has_jumped = true
 			freeze = false
+			
 			
 	
 	# disable movement before jump
@@ -57,7 +61,7 @@ func _hit_pipe(_body):
 func start(pos):
 	was_hit = false
 	freeze = true
-	position = pos
+	PhysicsServer2D.body_set_state(get_rid(), PhysicsServer2D.BODY_STATE_TRANSFORM, Transform2D(0, pos))
 	freeze = false
 	is_dead = false
 	has_jumped = false

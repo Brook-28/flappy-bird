@@ -59,4 +59,5 @@ volume_db = 16.224
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="hit" from="PhysicsBird" to="." method="game_over"]
+[connection signal="jumped" from="PhysicsBird" to="." method="_on_physics_bird_jumped"]
 [connection signal="start_game" from="hud" to="." method="new_game"]
