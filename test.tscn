@@ -1,26 +1,62 @@
 [gd_scene format=3 uid="uid://eegs4jv3740f"]
 
+[ext_resource type="Script" uid="uid://xwwk3dugyqq7" path="res://test.gd" id="1_6uqi0"]
 [ext_resource type="PackedScene" uid="uid://bcqxu1tweeb4x" path="res://physics_bird.tscn" id="1_37kl0"]
+[ext_resource type="PackedScene" uid="uid://s0myixo1mowg" path="res://physics_pipe.tscn" id="2_8uh7m"]
+[ext_resource type="Texture2D" uid="uid://cn5vxii3gc5hi" path="res://assets/sky.png" id="3_g14j6"]
+[ext_resource type="Texture2D" uid="uid://b1uaqhwy7dj4w" path="res://assets/grass.png" id="4_ppyta"]
+[ext_resource type="Texture2D" uid="uid://b8hu0vivu00sb" path="res://assets/ground.png" id="5_ykrsh"]
+[ext_resource type="PackedScene" uid="uid://ctjnvnfwjyior" path="res://hud.tscn" id="7_vbegm"]
+[ext_resource type="AudioStream" uid="uid://7ylyldgvrsj4" path="res://assets/gameOver.mp3" id="8_xersf"]
+[ext_resource type="AudioStream" uid="uid://bw0rt4pw4nt5a" path="res://assets/gamestart_jmqDSOpr.mp3" id="9_00tp4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8uh7m"]
-size = Vector2(908, 20)
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6uqi0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ykrsh"]
+size = Vector2(540, 160.125)
 
 [node name="test" type="Node" unique_id=140541097]
+script = ExtResource("1_6uqi0")
+physics_pipe_scene = ExtResource("2_8uh7m")
+
+[node name="sky_sprite" type="Sprite2D" parent="." unique_id=1972020038]
+position = Vector2(271, 349)
+texture = ExtResource("3_g14j6")
+
+[node name="Timer" type="Timer" parent="." unique_id=53310719]
+wait_time = 1.2
 
 [node name="PhysicsBird" parent="." unique_id=586083337 instance=ExtResource("1_37kl0")]
 position = Vector2(167, 128)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1557236869]
+[node name="ground" type="StaticBody2D" parent="." unique_id=1740297326]
+z_index = 1
+physics_material_override = SubResource("PhysicsMaterial_6uqi0")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=582118106]
-position = Vector2(277, 533)
-shape = SubResource("RectangleShape2D_8uh7m")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ground" unique_id=1936739357]
+position = Vector2(270, 780.0625)
+shape = SubResource("RectangleShape2D_ykrsh")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=64145845]
-position = Vector2(-15, 385)
-rotation = 1.5707964
-shape = SubResource("RectangleShape2D_8uh7m")
+[node name="ground_sprite" type="Sprite2D" parent="ground" unique_id=571037823]
+texture_filter = 1
+position = Vector2(271, 850.5)
+scale = Vector2(1, 0.54200006)
+texture = ExtResource("5_ykrsh")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D/CollisionShape2D2" unique_id=472720563]
-position = Vector2(-105.00001, -557)
-shape = SubResource("RectangleShape2D_8uh7m")
+[node name="grass_sprite" type="Sprite2D" parent="ground" unique_id=1592515014]
+texture_filter = 1
+position = Vector2(540, 710)
+texture = ExtResource("4_ppyta")
+
+[node name="hud" parent="." unique_id=214659990 instance=ExtResource("7_vbegm")]
+
+[node name="gameOverSound" type="AudioStreamPlayer2D" parent="." unique_id=1991861593]
+stream = ExtResource("8_xersf")
+
+[node name="gameStartSound" type="AudioStreamPlayer2D" parent="." unique_id=1088839585]
+stream = ExtResource("9_00tp4")
+volume_db = 16.224
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="hit" from="PhysicsBird" to="." method="game_over"]
+[connection signal="start_game" from="hud" to="." method="new_game"]

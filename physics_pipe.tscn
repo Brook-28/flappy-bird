@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://s0myixo1mowg"]
+
+[ext_resource type="Texture2D" uid="uid://bjnhvsap5i47k" path="res://assets/Pixel_pipe.png" id="1_hukxd"]
+[ext_resource type="Script" uid="uid://dk7d3yxl4ntjg" path="res://physics_pipe.gd" id="1_otbvp"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hukxd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hukxd"]
+size = Vector2(90, 437)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_otbvp"]
+size = Vector2(90, 436)
+
+[node name="physics_pipe" type="StaticBody2D" unique_id=1492672350]
+physics_material_override = SubResource("PhysicsMaterial_hukxd")
+script = ExtResource("1_otbvp")
+metadata/_edit_group_ = true
+
+[node name="upper_pipe_sprite" type="Sprite2D" parent="." unique_id=1784864734]
+texture_filter = 1
+position = Vector2(0, -310)
+rotation = 3.1415927
+scale = Vector2(2.5, 2)
+texture = ExtResource("1_hukxd")
+
+[node name="lower_pipe_sprite" type="Sprite2D" parent="." unique_id=1434453326]
+texture_filter = 1
+position = Vector2(0, 310)
+scale = Vector2(2.5, 2)
+texture = ExtResource("1_hukxd")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=512601501]
+position = Vector2(-31, -93)
+rect = Rect2(-10, -447, 83, 1082)
+
+[node name="upper_pipe_collision" type="CollisionShape2D" parent="." unique_id=1246902011]
+position = Vector2(0, -310.5)
+shape = SubResource("RectangleShape2D_hukxd")
+
+[node name="lower_pipe_collision" type="CollisionShape2D" parent="." unique_id=2021414788]
+position = Vector2(0, 310)
+shape = SubResource("RectangleShape2D_otbvp")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -2,16 +2,20 @@
 
 [ext_resource type="Script" uid="uid://cymco27g25uxs" path="res://physics_bird.gd" id="1_15ma2"]
 [ext_resource type="Texture2D" uid="uid://b77air4xho10x" path="res://assets/bird_sprite1.png" id="1_tuoce"]
+[ext_resource type="AudioStream" uid="uid://dimf4ha1j41cw" path="res://assets/jumpSound.wav" id="3_ka0u5"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_15ma2"]
-bounce = 0.4
+friction = 0.5
+bounce = 0.6
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ka0u5"]
 radius = 16.0
 
 [node name="PhysicsBird" type="RigidBody2D" unique_id=586083337]
 physics_material_override = SubResource("PhysicsMaterial_15ma2")
-gravity_scale = 1.65
+gravity_scale = 2.5
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_15ma2")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2137031724]
@@ -22,3 +26,8 @@ texture = ExtResource("1_tuoce")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1433250230]
 scale = Vector2(1.5, 1.5)
 shape = SubResource("CircleShape2D_ka0u5")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1804421677]
+stream = ExtResource("3_ka0u5")
+
+[connection signal="body_entered" from="." to="." method="_hit_pipe"]

@@ -9,7 +9,7 @@ var game_active = false
 func _on_pipe_timer_timeout() -> void:
 	
 	var pipe = pipe_scene.instantiate()
-	var pipe_position_y = randf_range(150, 550)
+	var pipe_position_y = randf_range(170, 530)
 	pipe.position = Vector2(600, pipe_position_y)
 	
 	add_child(pipe)
