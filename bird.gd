@@ -21,6 +21,7 @@ func _unhandled_input(event):
 	if not is_dead:
 		if event.is_action_pressed("Jump"):
 			jump_requested = true
+			
 
 
 

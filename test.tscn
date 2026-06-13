@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ctjnvnfwjyior" path="res://hud.tscn" id="7_vbegm"]
 [ext_resource type="AudioStream" uid="uid://7ylyldgvrsj4" path="res://assets/gameOver.mp3" id="8_xersf"]
 [ext_resource type="AudioStream" uid="uid://bw0rt4pw4nt5a" path="res://assets/gamestart_jmqDSOpr.mp3" id="9_00tp4"]
+[ext_resource type="AudioStream" uid="uid://dimf4ha1j41cw" path="res://assets/jumpSound.wav" id="10_00tp4"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6uqi0"]
 
@@ -27,7 +28,7 @@ texture = ExtResource("3_g14j6")
 wait_time = 1.2
 
 [node name="PhysicsBird" parent="." unique_id=586083337 instance=ExtResource("1_37kl0")]
-position = Vector2(167, 128)
+position = Vector2(100, 400)
 
 [node name="ground" type="StaticBody2D" parent="." unique_id=1740297326]
 z_index = 1
@@ -57,7 +58,12 @@ stream = ExtResource("8_xersf")
 stream = ExtResource("9_00tp4")
 volume_db = 16.224
 
+[node name="gameJumpSound" type="AudioStreamPlayer2D" parent="." unique_id=912684418]
+stream = ExtResource("10_00tp4")
+volume_db = 14.0
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="hit" from="PhysicsBird" to="." method="game_over"]
+[connection signal="jump" from="PhysicsBird" to="." method="_on_physics_bird_jump"]
 [connection signal="jumped" from="PhysicsBird" to="." method="_on_physics_bird_jumped"]
 [connection signal="start_game" from="hud" to="." method="new_game"]

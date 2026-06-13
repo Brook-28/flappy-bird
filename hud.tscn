@@ -2,6 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://c4h41jxe4xn5u" path="res://assets/Minecraftia-Regular.ttf" id="1_37p78"]
 [ext_resource type="Script" uid="uid://ce5sxcs4yiry8" path="res://hud.gd" id="1_64ctp"]
+[ext_resource type="FontFile" uid="uid://lvx118233apy" path="res://assets/LEMONMILK-Regular.otf" id="2_8sq4i"]
 
 [node name="hud" type="CanvasLayer" unique_id=214659990]
 script = ExtResource("1_64ctp")
@@ -12,7 +13,7 @@ anchor_right = 1.0
 offset_bottom = 112.0
 grow_horizontal = 2
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("1_37p78")
+theme_override_fonts/font = ExtResource("2_8sq4i")
 theme_override_font_sizes/font_size = 64
 text = "0"
 horizontal_alignment = 1
@@ -48,7 +49,7 @@ offset_bottom = 52.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("1_37p78")
+theme_override_fonts/font = ExtResource("2_8sq4i")
 theme_override_font_sizes/font_size = 60
 text = "Mr. Flappy"
 horizontal_alignment = 1
@@ -57,6 +58,19 @@ vertical_alignment = 1
 [node name="Timer" type="Timer" parent="." unique_id=1570145544]
 wait_time = 2.0
 one_shot = true
+
+[node name="High_score" type="Label" parent="." unique_id=2068814891]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -60.0
+offset_bottom = 112.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("2_8sq4i")
+theme_override_font_sizes/font_size = 64
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

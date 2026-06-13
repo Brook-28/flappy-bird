@@ -18,14 +18,14 @@ metadata/_edit_group_ = true
 
 [node name="upper_pipe_sprite" type="Sprite2D" parent="." unique_id=1784864734]
 texture_filter = 1
-position = Vector2(0, -310)
+position = Vector2(0, -320)
 rotation = 3.1415927
 scale = Vector2(2.5, 2)
 texture = ExtResource("1_hukxd")
 
 [node name="lower_pipe_sprite" type="Sprite2D" parent="." unique_id=1434453326]
 texture_filter = 1
-position = Vector2(0, 310)
+position = Vector2(0, 320)
 scale = Vector2(2.5, 2)
 texture = ExtResource("1_hukxd")
 
@@ -34,11 +34,11 @@ position = Vector2(-31, -93)
 rect = Rect2(-10, -447, 83, 1082)
 
 [node name="upper_pipe_collision" type="CollisionShape2D" parent="." unique_id=1246902011]
-position = Vector2(0, -310.5)
+position = Vector2(0, -320.5)
 shape = SubResource("RectangleShape2D_hukxd")
 
 [node name="lower_pipe_collision" type="CollisionShape2D" parent="." unique_id=2021414788]
-position = Vector2(0, 310)
+position = Vector2(0, 320)
 shape = SubResource("RectangleShape2D_otbvp")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

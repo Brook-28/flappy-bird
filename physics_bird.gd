@@ -1,38 +1,49 @@
 extends RigidBody2D
 signal hit
 signal jumped
+signal jump
 
 var base_scale = Vector2(1.5, 1.5)
 @export var jump_force = -33000.0
 var is_dead = false
 var has_jumped = false
 var was_hit = false
+var jump_requested = false
+
+
 
 func _ready() -> void:
 	freeze = true
 	hide()
+
+func _unhandled_input(event):
+	if not is_dead:
+		if event.is_action_pressed("Jump"):
+			jump_requested = true
+			
 
 
 func _physics_process(delta: float) -> void:
 	
 	# player input
 	if not is_dead:
-		if Input.is_action_just_pressed("Jump"):
+		if jump_requested:
+			jump.emit()
+			jump_requested = false
+			if Input.is_action_just_pressed("Jump"):
+				linear_velocity = Vector2(0, jump_force * 1.2) * delta
+				if not has_jumped:
+					jumped.emit()
+				has_jumped = true
+				freeze = false
+				
 			
-			linear_velocity = Vector2(0, jump_force * 1.2) * delta
-			if not has_jumped:
-				jumped.emit()
-			has_jumped = true
-			freeze = false
 			
-			
-	
 	# disable movement before jump
 	if not has_jumped:
 		freeze = true
 
 func _process(delta: float) -> void:
-	
 	
 
 	
